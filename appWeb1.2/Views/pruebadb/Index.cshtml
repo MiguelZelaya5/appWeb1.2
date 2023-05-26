@@ -1,0 +1,130 @@
+﻿@model IEnumerable<appWeb1._2.Models.Trabajo>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Búsqueda de empleo</h1>
+
+<form action="resultados.html" method="GET">
+    <label for="experiencia">Nivel de experiencia:</label>
+    <select id="experiencia" name="experiencia">
+        <option value="junior">Junior</option>
+        <option value="intermedio">Intermedio</option>
+        <option value="senior">Senior</option>
+    </select>
+
+    <br>
+
+    <label for="sector">Sector laboral:</label>
+    <select id="sector" name="sector">
+        <option value="tecnologia">Tecnología</option>
+        <option value="finanzas">Finanzas</option>
+        <option value="ventas">Ventas</option>
+        <!-- Agrega más opciones según tus necesidades -->
+    </select>
+
+    <br>
+
+    <label for="contrato">Tipo de contrato:</label>
+    <select id="contrato" name="contrato">
+        <option value="tiempo-completo">Tiempo completo</option>
+        <option value="tiempo-parcial">Tiempo parcial</option>
+        <option value="temporal">Temporal</option>
+    </select>
+
+    <br>
+
+    <label for="ubicacion">Ubicación:</label>
+    <input type="text" id="ubicacion" name="ubicacion">
+
+    <br>
+
+    <label for="tipo-trabajo">Tipo de trabajo:</label>
+    <select id="tipo-trabajo" name="tipo-trabajo">
+        <option value="remoto">Remoto</option>
+        <option value="presencial">Presencial</option>
+        <!-- Agrega más opciones según tus necesidades -->
+    </select>
+
+    <br>
+
+    <label for="salario">Salario mínimo:</label>
+    <input type="number" id="salario" name="salario">
+
+    <br>
+
+    <input type="submit" value="Buscar">
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.titulotrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombreempresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ubicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipotrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechapublicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nivelexperiencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sectorlaboral)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipocontrato)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titulotrabajo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombreempresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ubicacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipotrabajo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechapublicacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.salario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nivelexperiencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sectorlaboral)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipocontrato)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.idtrabajo">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.idtrabajo">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.idtrabajo">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
