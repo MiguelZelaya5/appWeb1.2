@@ -158,5 +158,20 @@ namespace appWeb1._2.Controllers
         {
           return (_context.Trabajo?.Any(e => e.idtrabajo == id)).GetValueOrDefault();
         }
+
+        public ActionResult Buscar(string experiencia, string sector, string contrato, string ubicacion, string tipoTrabajo, decimal? salario)
+        {
+            // Realiza la consulta a la base de datos según los parámetros de búsqueda
+            var trabajos = _context.Trabajo.Where(t =>
+                t.nivelexperiencia == experiencia &&
+                t.sectorlaboral == sector &&
+                t.tipocontrato == contrato &&
+                t.ubicacion.Contains(ubicacion) &&
+                t.tipotrabajo == tipoTrabajo &&
+                (salario == null || t.salario >= salario)
+            ).ToList();
+
+            return View(trabajos);
+        }
     }
 }
