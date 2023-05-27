@@ -2,190 +2,87 @@
 
 @{
     ViewData["Title"] = "Index";
-    ViewBag.Title = "Buscar empleo";
+
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.titulotrabajo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombreempresa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ubicacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tipotrabajo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechapublicacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.salario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nivelexperiencia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.sectorlaboral)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tipocontrato)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.titulotrabajo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombreempresa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ubicacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tipotrabajo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechapublicacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.salario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nivelexperiencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sectorlaboral)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tipocontrato)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.idtrabajo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.idtrabajo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.idtrabajo">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
 <!--filtros-->
 
-<table class="table">
-    <thead>
-        <!-- Encabezados de la tabla -->
-    </thead>
-    <tbody>
-        @foreach (var trabajo in Model)
-        {
-            <tr>
-                <td>@trabajo.titulotrabajo</td>
-                <td>@trabajo.nombreempresa</td>
-                <td>@trabajo.ubicacion</td>
-                <!-- Muestra el resto de las propiedades del trabajo -->
-            </tr>
-        }
-    </tbody>
-</table>
+ <form asp-action="filtrarDatos">
+    <div class="form-group row mb-4">
+       
+        <!--Nivel de experincia-->
+        <div class="col-sm-2">
+            @Html.Label("lblexpe","Nivel de experiencia")
+            @Html.DropDownList("nivelexperiencia", ViewData["nivelexp"] as SelectList, "Seleccione nivel de experiencia...", new {@class="form-control"})
+            @Html.Label("lblslab","Sector laboral")
+            @Html.DropDownList("sectorlaboral", ViewData["sectorlab"] as SelectList, "Seleccione un sector...", new {@class="form-control"})
+            @Html.Label("lbltcontra","Tipo de Contrato")
+            @Html.DropDownList("tipocontrato", ViewData["tContrato"] as SelectList, "Seleccione un tipo de contrato...", new {@class="form-control"})
+        </div>
+        <div class="col-sm-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Titulo del trabajo</th>
+                        <th>Nombre de empresa</th>
+                        <th>Ubicacion</th>
+                        <th>Tipo de trabajo</th>
+                        <th>Fecha de publicacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var listado in (IEnumerable<dynamic>)ViewData["listadodatos"])
+                    {
+                        <tr>
+                            <td>@listado.titulotrabajo</td>
+                            <td>@listado.nombreempresa</td>
+                            <td>@listado.ubicacion</td>
+                            <td>@listado.trabajo</td>
+                            <td>@listado.fecha</td>
+                        </tr>
+                    }
+                </tbody>
 
-@using (Html.BeginForm("Buscar", "Trabajo", FormMethod.Get))
-{
-    <label for="experiencia">Nivel de experiencia:</label>
-    <select id="experiencia" name="experiencia">
-        <option value="junior">Junior</option>
-        <option value="intermedio">Intermedio</option>
-        <option value="senior">Senior</option>
-    </select>
+            </table>
+        </div>
+        <div class="col-sm-3">
+            @Html.Label("lblubicacion","Ubicacion")
+            @Html.DropDownList("ubicacion", ViewData["ubica"] as SelectList, "Seleccione un ubicacion...", new {@class="form-control"})
+            @Html.Label("lbltTrabjo","Tipo de Trabajo")
+            @Html.DropDownList("tipotrabajo", ViewData["tipoTrabajo"] as SelectList, "Seleccione un trabajo...", new {@class="form-control"})
+            @Html.Label("lblsala","Salario")
+            @Html.DropDownList("salario", ViewData["salari"] as SelectList, "Seleccione un salario...", new {@class="form-control"})
+        </div>
+    </div>        
+    <button type="submit" class="btn btn-success" >Filtrar</button>
 
-    <br>
+</form>
 
-    <label for="sector">Sector laboral:</label>
-    <select id="sector" name="sector">
-        <option value="tecnologia">Tecnología</option>
-        <option value="finanzas">Finanzas</option>
-        <option value="ventas">Ventas</option>
-        <!-- Agrega más opciones según tus necesidades -->
-    </select>
+<h1>Metricas de empresa</h1>
+<div class="container">
+        <div class="col row row-cols-auto top-20">
+            <div class="col top-40"> <h3>Usuarios</h3> </div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
 
-    <br>
+            <div class="col row row-cols-auto top-20">
+            <div class="col top-40"> <h3>Empleos</h3> </div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            </div>
 
-    <label for="contrato">Tipo de contrato:</label>
-    <select id="contrato" name="contrato">
-        <option value="tiempo-completo">Tiempo completo</option>
-        <option value="tiempo-parcial">Tiempo parcial</option>
-        <option value="temporal">Temporal</option>
-    </select>
+            <div class="col row row-cols-auto top-20">
+            <div class="col top-40"> <h3>Recepcion de empleos</h3> </div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            <div class="col p-3 mb-2 bg-white text-black">0</div>
+            </div>
+        </div>
+    </div>
 
-    <br>
-
-    <label for="ubicacion">Ubicación:</label>
-    <input type="text" id="ubicacion" name="ubicacion">
-
-    <br>
-
-    <label for="tipo-trabajo">Tipo de trabajo:</label>
-    <select id="tipo-trabajo" name="tipo-trabajo">
-        <option value="remoto">Remoto</option>
-        <option value="presencial">Presencial</option>
-        <!-- Agrega más opciones según tus necesidades -->
-    </select>
-
-    <br>
-
-    <label for="salario">Salario mínimo:</label>
-    <input type="number" id="salario" name="salario">
-
-    <br>
-
-    <input type="submit" value="Buscar">
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>Título del trabajo</th>
-            <th>Nombre de la empresa</th>
-            <th>Ubicación</th>
-            <th>Tipo de trabajo</th>
-            <th>Fecha de publicación</th>
-            <th>Salario</th>
-            <th>Nivel de experiencia</th>
-            <th>Sector laboral</th>
-            <th>Tipo de contrato</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var trabajo in Model)
-        {
-            <tr>
-                <td>@trabajo.titulotrabajo</td>
-                <td>@trabajo.nombreempresa</td>
-                <td>@trabajo.ubicacion</td>
-                <td>@trabajo.tipotrabajo</td>
-                <td>@trabajo.fechapublicacion</td>
-                <td>@trabajo.salario</td>
-                <td>@trabajo.nivelexperiencia</td>
-                <td>@trabajo.sectorlaboral</td>
-                <td>@trabajo.tipocontrato</td>
-                <td>
-                    <a href="@Url.Action("Edit", new { id = trabajo.idtrabajo })">Editar</a> |
-                    <a href="@Url.Action("Details", new { id = trabajo.idtrabajo })">Detalles</a> |
-                    <a href="@Url.Action("Delete", new { id = trabajo.idtrabajo })">Eliminar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

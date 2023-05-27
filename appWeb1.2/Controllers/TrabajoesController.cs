@@ -21,9 +21,42 @@ namespace appWeb1._2.Controllers
         // GET: Trabajoes
         public async Task<IActionResult> Index()
         {
-              return _context.Trabajo != null ? 
-                          View(await _context.Trabajo.ToListAsync()) :
-                          Problem("Entity set 'pruebadbContext.Trabajo'  is null.");
+            var nivelexp = (from m in _context.Trabajo
+                            select m.nivelexperiencia).ToList();
+            ViewData["nivelexp"] = new SelectList(nivelexp, "nivelexperiencia");
+
+            var sectorlab = (from m in _context.Trabajo
+                            select m.sectorlaboral).ToList();
+            ViewData["sectorlab"] = new SelectList(sectorlab, "sectorlaboral");
+
+            var tContrato = (from m in _context.Trabajo
+                             select m.tipocontrato).ToList();
+            ViewData["tContrato"] = new SelectList(tContrato, "tipocontrato");
+            var ubica = (from m in _context.Trabajo
+                             select m.ubicacion).ToList();
+            ViewData["ubica"] = new SelectList(ubica, "ubicacion");
+            var tipoTrabajo = (from m in _context.Trabajo
+                         select m.tipotrabajo).ToList();
+            ViewData["tipoTrabajo"] = new SelectList(tipoTrabajo, "tipotrabajo");
+
+            var salari = (from m in _context.Trabajo
+                         select m.salario).ToList();
+            ViewData["salari"] = new SelectList(salari, "salario");
+
+            var mostrardatos = (from c in _context.Trabajo
+                                 select new
+                                 {
+                                     titulotrabajo = c.titulotrabajo,
+                                     nombreempresa = c.nombreempresa,
+                                     ubicacion = c.ubicacion,
+                                     trabajo=c.tipotrabajo,
+                                     fecha=c.fechapublicacion
+
+                                 }).ToList();
+            ViewData["listadodatos"] = mostrardatos;
+            return View();
+
+
         }
 
         // GET: Trabajoes/Details/5
@@ -149,29 +182,23 @@ namespace appWeb1._2.Controllers
             {
                 _context.Trabajo.Remove(trabajo);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TrabajoExists(int id)
         {
-          return (_context.Trabajo?.Any(e => e.idtrabajo == id)).GetValueOrDefault();
+            return (_context.Trabajo?.Any(e => e.idtrabajo == id)).GetValueOrDefault();
         }
 
-        public ActionResult Buscar(string experiencia, string sector, string contrato, string ubicacion, string tipoTrabajo, decimal? salario)
-        {
-            // Realiza la consulta a la base de datos según los parámetros de búsqueda
-            var trabajos = _context.Trabajo.Where(t =>
-                t.nivelexperiencia == experiencia &&
-                t.sectorlaboral == sector &&
-                t.tipocontrato == contrato &&
-                t.ubicacion.Contains(ubicacion) &&
-                t.tipotrabajo == tipoTrabajo &&
-                (salario == null || t.salario >= salario)
-            ).ToList();
 
-            return View(trabajos);
-        }
-    }
+        
+
+
+
+       }
+
+
+    
 }

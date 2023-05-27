@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace appWeb1._2.Models
 {
@@ -18,4 +19,13 @@ namespace appWeb1._2.Models
 
 
     }
+    public class BuscarTrabajoViewModel
+    {
+        public List<SelectListItem> Experiencias { get; set; }
+        public List<SelectListItem> Sectores { get; set; }
+        public List<SelectListItem> TiposContrato { get; set; }
+        public List<SelectListItem> TiposTrabajo { get; set; }
+    }
+
+
 }
