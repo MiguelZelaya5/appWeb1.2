@@ -19,43 +19,98 @@ namespace appWeb1._2.Controllers
         }
 
         // GET: Trabajoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nivelexperiencia, string sectorlaboral, string tipocontrato, string ubicacion, string tipotrabajo, decimal salario)
         {
             var nivelexp = (from m in _context.Trabajo
-                            select m.nivelexperiencia).ToList();
+                            select m.nivelexperiencia).Distinct().ToList();
             ViewData["nivelexp"] = new SelectList(nivelexp, "nivelexperiencia");
 
             var sectorlab = (from m in _context.Trabajo
-                            select m.sectorlaboral).ToList();
+                             select m.sectorlaboral).Distinct().ToList();
             ViewData["sectorlab"] = new SelectList(sectorlab, "sectorlaboral");
 
             var tContrato = (from m in _context.Trabajo
-                             select m.tipocontrato).ToList();
+                             select m.tipocontrato).Distinct().ToList();
             ViewData["tContrato"] = new SelectList(tContrato, "tipocontrato");
             var ubica = (from m in _context.Trabajo
-                             select m.ubicacion).ToList();
+                         select m.ubicacion).Distinct().ToList();
             ViewData["ubica"] = new SelectList(ubica, "ubicacion");
             var tipoTrabajo = (from m in _context.Trabajo
-                         select m.tipotrabajo).ToList();
+                               select m.tipotrabajo).Distinct().ToList();
             ViewData["tipoTrabajo"] = new SelectList(tipoTrabajo, "tipotrabajo");
 
             var salari = (from m in _context.Trabajo
-                         select m.salario).ToList();
+                          select m.salario).Distinct().ToList();
             ViewData["salari"] = new SelectList(salari, "salario");
 
             var mostrardatos = (from c in _context.Trabajo
-                                 select new
-                                 {
-                                     titulotrabajo = c.titulotrabajo,
-                                     nombreempresa = c.nombreempresa,
-                                     ubicacion = c.ubicacion,
-                                     trabajo=c.tipotrabajo,
-                                     fecha=c.fechapublicacion
+                                select new
+                                {
+                                    titulotrabajo = c.titulotrabajo,
+                                    nombreempresa = c.nombreempresa,
+                                    ubicacion = c.ubicacion,
+                                    trabajo = c.tipotrabajo,
+                                    fecha = c.fechapublicacion
+                                }).ToList();
 
-                                 }).ToList();
             ViewData["listadodatos"] = mostrardatos;
+            int conteo = mostrardatos.Count;
+            ViewData["conteoDatos"] = conteo;
+            var conteousuario = (from u in _context.usuarios select u).ToList();
+            int conteousuarios = conteousuario.Count;
+            ViewData["conteousuarios"] = conteousuarios;
+            if (!string.IsNullOrEmpty(nivelexperiencia) || !string.IsNullOrEmpty(sectorlaboral) || !string.IsNullOrEmpty(tipocontrato) || !string.IsNullOrEmpty(ubicacion) || !string.IsNullOrEmpty(tipotrabajo) || salario > 0)
+            {
+                var datostrabajosfil = (from t in _context.Trabajo
+                                        where t.nivelexperiencia.Contains(nivelexperiencia) && t.sectorlaboral.Contains(sectorlaboral) && t.tipocontrato.Contains(tipocontrato) && t.ubicacion.Contains(ubicacion) && t.tipotrabajo.Contains(tipotrabajo) && t.salario == salario
+                                        select new
+                                        {
+                                            titulotrabajo = t.titulotrabajo,
+                                            nombreempresa = t.nombreempresa,
+                                            ubicacion = t.ubicacion,
+                                            trabajo = t.tipotrabajo,
+                                            fecha = t.fechapublicacion
+
+                                        }).ToList();
+
+
+                ViewData["listadodatos"] = datostrabajosfil;
+            }
+            else
+            {
+                var mostrardatos2 = (from c in _context.Trabajo
+                                     select new
+                                     {
+                                         titulotrabajo = c.titulotrabajo,
+                                         nombreempresa = c.nombreempresa,
+                                         ubicacion = c.ubicacion,
+                                         trabajo = c.tipotrabajo,
+                                         fecha = c.fechapublicacion
+                                     }).ToList();
+
+                ViewData["listadodatos"] = mostrardatos2;
+
+            }
+
+
+
+
             return View();
 
+
+
+
+        }
+        public IActionResult filtrarDatos(string nivelexperiencia, string sectorlaboral, string tipocontrato, string ubicacion, string tipotrabajo, decimal salario)
+        {
+
+            return RedirectToAction("Index", new { nivelexperiencia, sectorlaboral, tipocontrato, ubicacion, tipotrabajo, salario });
+        }
+
+        public IActionResult quitarFiltrado(string nivelexperiencia, string sectorlaboral, string tipocontrato, string ubicacion, string tipotrabajo, decimal salario)
+        {
+
+            return RedirectToAction("Index", new { nivelexperiencia, sectorlaboral, tipocontrato, ubicacion, tipotrabajo, salario });
 
         }
 
@@ -193,12 +248,12 @@ namespace appWeb1._2.Controllers
         }
 
 
-        
 
 
 
-       }
+
+    }
 
 
-    
+
 }
