@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+
 namespace appWeb1._2.Models
 {
     public class usuarios
@@ -16,5 +18,7 @@ namespace appWeb1._2.Models
         public int valoracion { get; set; }
 
         public string valoracion_empresa { get; set; }
+        
+        
     }
 }
