@@ -1,5 +1,6 @@
 ﻿using appWeb1._2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace appWeb1._2.Controllers
 {
@@ -38,8 +39,20 @@ namespace appWeb1._2.Controllers
                                   ).ToList();
             ViewData["comentariosuser"] = comentariosuser;
 
+
+            var comboadmin = (from a in _context.administracionEmpresa
+                              select a).ToList();
+            ViewData["listadoempresas"] = new SelectList(comboadmin, "id_perfil", "nombre_empresa");
+
             return View();
         }
+        public IActionResult Crearcomentario(seccioncoment nuevocomentario)
+        {
+            _context.Add(nuevocomentario);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
