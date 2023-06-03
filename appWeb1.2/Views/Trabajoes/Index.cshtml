@@ -7,97 +7,139 @@
 <!--filtros-->
 
 <form asp-action="filtrarDatos">
-    <div class="form-group row mb-4">
+    <div class="container text-center">
+        <div class="row mb-4 pt-4">
+            <div class="col-md-3">
+                <!-- Nivel de experiencia -->
+                <div class="mb-4">
+                    @Html.Label("lblexpe", "Nivel de experiencia")
+                    @Html.DropDownList("nivelexperiencia", ViewData["nivelexp"] as SelectList, "Seleccione nivel de experiencia...", new { @class = "form-control" })
+                </div>
 
-        <!--Nivel de experincia-->
-        <div class="col-sm-2">
-            @Html.Label("lblexpe","Nivel de experiencia")
-            @Html.DropDownList("nivelexperiencia", ViewData["nivelexp"] as SelectList, "Seleccione nivel de experiencia...", new {@class="form-control"})
-            @Html.Label("lblslab","Sector laboral")
-            @Html.DropDownList("sectorlaboral", ViewData["sectorlab"] as SelectList, "Seleccione un sector...", new {@class="form-control"})
-            @Html.Label("lbltcontra","Tipo de Contrato")
-            @Html.DropDownList("tipocontrato", ViewData["tContrato"] as SelectList, "Seleccione un tipo de contrato...", new {@class="form-control"})
-        </div>
-        <div class="col-sm-6">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Titulo del trabajo</th>
-                        <th>Nombre de empresa</th>
-                        <th>Ubicacion</th>
-                        <th>Tipo de trabajo</th>
-                        <th>Fecha de publicacion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var listado in (IEnumerable<dynamic>)ViewData["listadodatos"])
-                    {
+                <!-- Sector laboral -->
+                <div class="mb-4">
+                    @Html.Label("lblslab", "Sector laboral")
+                    @Html.DropDownList("sectorlaboral", ViewData["sectorlab"] as SelectList, "Seleccione un sector...", new { @class = "form-control" })
+                </div>
+
+                <!-- Tipo de Contrato -->
+                <div class="mb-3 pb-2">
+                    @Html.Label("lbltcontra", "Tipo de Contrato")
+                    @Html.DropDownList("tipocontrato", ViewData["tContrato"] as SelectList, "Seleccione un tipo de contrato...", new { @class = "form-control" })
+                </div>
+
+                <!-- Botón Filtrar -->
+                <div class="text-center p-3">
+                    <button type="submit" class="btn btn-secondary">Filtrar</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>@listado.titulotrabajo</td>
-                            <td>@listado.nombreempresa</td>
-                            <td>@listado.ubicacion</td>
-                            <td>@listado.trabajo</td>
-                            <td>@listado.fecha</td>
+                            <th>Titulo del trabajo</th>
+                            <th>Nombre de empresa</th>
+                            <th>Ubicacion</th>
+                            <th>Tipo de trabajo</th>
+                            <th>Fecha de publicacion</th>
                         </tr>
-                    }
-                </tbody>
+                    </thead>
+                    <tbody>
+                        @foreach (var listado in (IEnumerable<dynamic>)ViewData["listadodatos"])
+                        {
+                            <tr>
+                                <td>@listado.titulotrabajo</td>
+                                <td>@listado.nombreempresa</td>
+                                <td>@listado.ubicacion</td>
+                                <td>@listado.trabajo</td>
+                                <td>@listado.fecha</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
 
-            </table>
-        </div>
-        <div class="col-sm-3">
-            @Html.Label("lblubicacion","Ubicacion")
-            @Html.DropDownList("ubicacion", ViewData["ubica"] as SelectList, "Seleccione un ubicacion...", new {@class="form-control"})
-            @Html.Label("lbltTrabjo","Tipo de Trabajo")
-            @Html.DropDownList("tipotrabajo", ViewData["tipoTrabajo"] as SelectList, "Seleccione un trabajo...", new {@class="form-control"})
-            @Html.Label("lblsala","Salario")
-            @Html.DropDownList("salario", ViewData["salari"] as SelectList, "Seleccione un salario...", new {@class="form-control"})
+            <div class="col-md-3">
+                <!-- Ubicacion -->
+                <div class="mb-4">
+                    @Html.Label("lblubicacion", "Ubicacion")
+                    @Html.DropDownList("ubicacion", ViewData["ubica"] as SelectList, "Seleccione un ubicacion...", new { @class = "form-control" })
+                </div>
+
+                <!-- Tipo de Trabajo -->
+                <div class="mb-4">
+                    @Html.Label("lbltTrabjo", "Tipo de Trabajo")
+                    @Html.DropDownList("tipotrabajo", ViewData["tipoTrabajo"] as SelectList, "Seleccione un trabajo...", new { @class = "form-control" })
+                </div>
+
+                <!-- Salario -->
+                <div class="mb-3 pb-2">
+                    @Html.Label("lblsala", "Salario")
+                    @Html.DropDownList("salario", ViewData["salari"] as SelectList, "Seleccione un salario...", new { @class = "form-control" })
+                </div>
+
+                <!-- Botón Quitar filtrado -->
+                <div class="text-center p-3">
+                    <form asp-action="quitarFiltrado">
+                        <button type="submit" class="btn btn-secondary" onclick="deseleccionarDropDownList()">Quitar filtrado</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-success">Filtrar</button>
-    <form asp-action="quitarFiltrado">
-        <button type="submit" class="btn btn-success" onclick="deseleccionarDropDownList()">Quitar filtrado</button>
-    </form>
 </form>
 
-<h1>Metricas de empresa</h1>
-<div class="container">
-    <div class="col row row-cols-auto top-20">
-        <div class="col top-40"> <h3>Usuarios</h3></div>
-        <div class="col top-40 bg-white text-black" style="font-size:25px;">
-            @{
-                int conteouse = (int)ViewData["conteousuarios"];
-                string conteoFormatted1 = conteouse.ToString().PadLeft(Math.Max(4, conteouse.ToString().Length), '0');
-                string conteoSeparated1 = string.Join("    ", conteoFormatted1.Select(d => d.ToString()));
-            }
-            @conteoSeparated1
-        </div>
 
+<div class="text-center pb-4">
+    <h1 class="pb-4">Métricas de empresa</h1>
+    <div class="container border border-dark">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col top-20 border-bottom border-dark">
+                    <div class="top-40 pt-5">
+                        <h3>Usuarios</h3>
+                    </div>
+                    <div class="top-40 p-1 pb-5 bg-white text-black" style="font-size:25px;">
+                        @{
+                            int conteouse = (int)ViewData["conteousuarios"];
+                            string conteoFormatted1 = conteouse.ToString().PadLeft(Math.Max(4, conteouse.ToString().Length), '0');
+                            string conteoSeparated1 = string.Join("    ", conteoFormatted1.Select(d => d.ToString()));
+                        }
+                        @conteoSeparated1
+                    </div>
+                </div>
 
-        <div class="col row row-cols-auto top-20">
-            <div class="col top-40"> <h3>Empleos</h3> </div>
-            <div class="col top-40 bg-white text-black " style="font-size:25px;">
-                
-                @{
-                    int conteo = (int)ViewData["conteoDatos"];
-                    string conteoFormatted = conteo.ToString().PadLeft(Math.Max(4, conteo.ToString().Length), '0');
-                    string conteoSeparated = string.Join("    ", conteoFormatted.Select(d => d.ToString()));
-                }
-                @conteoSeparated
+                <div class="col top-20 border-bottom border-dark">
+                    <div class="top-40 pt-5">
+                        <h3>Empleos</h3>
+                    </div>
+                    <div class="top-40 p-1 pb-5 bg-white text-black" style="font-size:25px;">
+                        @{
+                            int conteo = (int)ViewData["conteoDatos"];
+                            string conteoFormatted = conteo.ToString().PadLeft(Math.Max(4, conteo.ToString().Length), '0');
+                            string conteoSeparated = string.Join("    ", conteoFormatted.Select(d => d.ToString()));
+                        }
+                        @conteoSeparated
+                    </div>
+                </div>
+
+                <div class="col top-20 border-bottom border-dark">
+                    <div class="top-40 pt-5">
+                        <h3>Recepción de empleos</h3>
+                    </div>
+                    <div class="top-40 p-1 pb-5 bg-white text-black" style="font-size:25px;">
+                        @{
+                            int conteo3 = (int)ViewData["conteoDatos"];
+                            string conteoFormatted3 = conteo3.ToString().PadLeft(Math.Max(4, conteo3.ToString().Length), '0');
+                            string conteoSeparated3 = string.Join("    ", conteoFormatted3.Select(d => d.ToString()));
+                        }
+                        @conteoSeparated3
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="col row row-cols-auto top-20" style="font-size:20px;>
-            <div class="col top-40"> <h3>Recepcion de empleos</h3> </div>
-            <div class="col top-40 bg-white text-black " style="font-size:25px;">
-            @{
-                int conteo3 = (int)ViewData["conteoDatos"];
-                string conteoFormatted3 = conteo3.ToString().PadLeft(Math.Max(4, conteo3.ToString().Length), '0');
-                string conteoSeparated3 = string.Join("    ", conteoFormatted3.Select(d => d.ToString()));
-            }
-            @conteoSeparated3
-            </div>
-
-        </div>
     </div>
 </div>
 
