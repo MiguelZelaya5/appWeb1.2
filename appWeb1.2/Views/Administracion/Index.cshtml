@@ -17,8 +17,8 @@
                 <h1 class="mt-3 mt-md-2">Administrador</h1>
                 <h3 class="mt-2">
                     Perfil:
-                    <button type="" class="btn btn-success" onclick="deseleccionarDropDownList()">Crear</button>
-                     <button type="" class="btn btn-success" onclick="deseleccionarDropDownList()">Actualizar</button>
+                    <button class="btn btn-secondary" id="mostrarFormulario">Crear</button>
+                    <button class="btn btn-secondary" id="mostrarFormulario2">Actualizar</button>
                     
                 </h3>
             </div>
@@ -27,60 +27,175 @@
             <img src="./img/usuario.svg" alt="Imagen" class="img-fluid" width="200">
         </div>
     </div>
+    <form asp-action="guardarperfiladministracion">
+        <div class="row mt-5" id="formulario" style="display: none;">
+            <div class="col-md-4">
+                <div class="row mb-2">
+                    <div class="col-6">
+                        <h4>Nombre de la empresa:</h4>
+                    </div>
+                    <div class="col-6">
 
-    <div class="row mt-5">
-        <div class="col-md-4">
-            <div class="row mb-2">
-                <div class="col-6">
-                    <h4>Nombre de la empresa:</h4>
+                        @Html.TextBox("nombre_empresa","", new { @class = "form-control form-control-sm" })
+                    </div>
                 </div>
-                <div class="col-6">
-
-                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <h4 class="mb-2">Descripción:</h4>
+                    </div>
+                    <div class="col-6">
+                        @Html.TextBox("descripcion_empresa","", new { @class = "form-control form-control-sm" })
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-6">
-                    <h4 class="mb-2">Descripción:</h4>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <h4 class="mb-2">Correo:</h4>
+                    </div>
+                    <div class="col-6">
+                        @Html.TextBox("correo","", new { @class = "form-control form-control-sm" })
+                    </div>
                 </div>
-                <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <h4 class="mb-2">Misión:</h4>
+                    </div>
+                    <div class="col-6">
+                        @Html.TextBox("mision","", new { @class = "form-control form-control-sm" })
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-6">
-                    <h4 class="mb-2">Correo:</h4>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <h4 class="mb-2">Visión:</h4>
+                    </div>
+                    <div class="col-6">
+                        @Html.TextBox("vision","", new { @class = "form-control form-control-sm" })
+                    </div>
                 </div>
-                <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <h4 class="mb-2">Detalle del contacto:</h4>
+                    </div>
+                    <div class="col-6">
+                        @Html.TextBox("detalle_contacto","", new { @class = "form-control form-control-sm" })
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-6">
-                    <h4 class="mb-2">Misión:</h4>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <h4 class="mb-2">Contraseña:</h4>
+                    </div>
+                    <div class="col-6">
+                        @Html.TextBox("contrasena","", new { @class = "form-control form-control-sm" })
+                    </div>
                 </div>
-                <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                <div class="text-center">
+                    <button type="submit" class="btn btn-secondary" id="mostrarFormulario">Guardar</button>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-6">
-                    <h4 class="mb-2">Visión:</h4>
-                </div>
-                <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
-                </div>
-            </div>
-            <div class="text-center">
-                <button class="btn btn-secondary w-25">Guardar</button>
             </div>
         </div>
-    </div>
+    </form>
+    <form asp-action="buscarempresausuario">
+        <div class="row mt-5" id="formulario2" style="display: @(ViewData["mostrarFormulario2"] as string == "block" ? "block" : "none");">
+            <!-- Código del formulario 2 -->
+            <div class="col-md-4">
+                <div class="row mb-2">
+                    <h4 class="mb-2">Ingresa correo y contraseña:</h4>
+                    <div class="col-6">
+                        <h4 class="mb-2">Correo:</h4>
+                    </div>
+                    <div class="col-6">
+                        @Html.TextBox("correo", "", new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <h4 class="mb-2">Contraseña:</h4>
+                    </div>
+                    <div class="col-6">
+                        @Html.TextBox("contrasena", "", new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+            <div>
+                    <button type="submit" class="btn btn-secondary" >Validar</button>
+            </div>
 
+        </div>
+    </form>
+            <form asp-action="ActualizarPerfil">
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                <h4>Nombre de la empresa:</h4>
+                            </div>
+                            <div class="col-6">
+                                <input type="hidden" name="id_perfil" value="@ViewData["id_perfil"]" />
+                                @Html.TextBox("nombre_empresa", ViewData["nombre_empresa"] as string, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h4 class="mb-2">Descripción:</h4>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBox("descripcion_empresa", ViewData["descripcion_empresa"] as string, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h4 class="mb-2">Correo:</h4>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBox("correo", ViewData["correo"] as string, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h4 class="mb-2">Misión:</h4>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBox("mision", ViewData["mision"] as string, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h4 class="mb-2">Visión:</h4>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBox("vision", ViewData["vision"] as string, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h4 class="mb-2">Detalle del contacto:</h4>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBox("detalle_contacto", ViewData["detalle_contacto"] as string, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h4 class="mb-2">Contraseña:</h4>
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBox("contrasena",ViewData["detalle_contacto"] as string, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-secondary w-25">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    
+    
     <div class="mt-4">
         <h1>Publicar trabajo</h1>
     </div>
-
+<form asp-action="guardartrabajo">
     <div class="row mt-4">
         <div class="col-md-6">
             <div class="row">
@@ -88,19 +203,31 @@
                     <h4 class="mt-2">Trabajo:</h4>
                 </div>
                 <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                    @Html.TextBox("titulotrabajo","",  new { @class="form-control" })
                 </div>
                 <div class="col-6">
-                    <h4 class="mt-2">Ubicación:</h4>
+                    <h4 class="mt-2">Nombre Empresa:</h4>
                 </div>
                 <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                    @Html.TextBox("nombreempresa","", new {@class="form-control"})
                 </div>
                 <div class="col-6">
-                    <h4 class="mt-2">Descripción:</h4>
+                    <h4 class="mt-2">Ubicacion:</h4>
                 </div>
                 <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                    @Html.TextBox("ubicacion","", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+                <div class="col-6">
+                    <h4 class="mt-2">Tipo de trabajo:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("tipotrabajo","", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+                <div class="col-6">
+                    <h4 class="mt-2">Fecha publicacion:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("fechapublicacion","", new { @class = "form-control form-control-sm mb-2" })
                 </div>
             </div>
         </div>
@@ -110,28 +237,37 @@
                     <h4 class="mt-2">Sueldo:</h4>
                 </div>
                 <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                    @Html.TextBox("salario","", new { @class = "form-control form-control-sm mb-2" })
                 </div>
                 <div class="col-6">
-                    <h4 class="mt-2">Requisito:</h4>
+                    <h4 class="mt-2">Nivel de experiencia:</h4>
                 </div>
                 <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                    @Html.TextBox("nivelexperiencia","", new { @class = "form-control form-control-sm mb-2" })
                 </div>
                 <div class="col-6">
-                    <h4 class="mt-2">Detalles de contacto:</h4>
+                    <h4 class="mt-2">Sector Laboral:</h4>
                 </div>
                 <div class="col-6">
-                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                    @Html.TextBox("sectorlaboral","", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+                <div class="col-6">
+                    <h4 class="mt-2">Tipo contrato:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("tipocontrato","", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+                   
+            </div>
+                
+        </div>
+            <div>
+                <div>
+                <button type="submit" class="btn btn-secondary  mt-3 mb-3">Publicar</button>
                 </div>
             </div>
-        </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-6 text-center">
-            <button class="btn btn-secondary w-25 mt-3 mb-3">Publicar</button>
-        </div>
-    </div>
+    </form>
 
     <div class="container p-4">
         <h4 class="text-center"><b>Estadisticas en tiempo real</b></h4>
@@ -180,29 +316,87 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="container mt-4 mb-4">
-            <div class="row text-center">
-                <div class="col border py-3">
-                    Candidato
-                    <div class="row">
-                        <div class="col">&nbsp;</div>
-                    </div>
-                </div>
-                <div class="col border py-3">
-                    Empresa
-                    <div class="row">
-                        <div class="col">&nbsp;</div>
-                    </div>
-                </div>
-                <div class="col border py-3">
-                    Valoración
-                    <div class="row">
-                        <div class="col">&nbsp;</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
 
     </div>
 </div>
+<div class="container p-3">
+    <div class="accordion" id="accordionExample">
+        <h3>Comentarios</h3>
+
+        @foreach (var group in ((IEnumerable<dynamic>)ViewData["comentariosuser"]).GroupBy(c => c.nombreempresa))
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading@group.Key">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@group.Key" aria-expanded="false" aria-controls="collapse@group.Key">
+                        Comentarios de @group.Key
+                    </button>
+                </h2>
+                <div id="collapse@group.Key" class="accordion-collapse collapse" aria-labelledby="heading@group.Key" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table table-fixed mx-auto">
+                            <thead>
+                                <tr>
+                                    <th class="text-center col-4">Empresa</th>
+                                    <th class="text-center col-4">Comentario</th>
+                                    <th class="text-center col-4">Valoración</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in group)
+                                {
+                                    <tr>
+                                        <td class="text-center col-4">@item.nombreempresa</td>
+                                        <td class="text-center col-4">@item.comentario</td>
+                                        <td class="text-center col-4">@item.valoracion</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var formulario = document.getElementById("formulario");
+        var mostrarFormulario = document.getElementById("mostrarFormulario");
+        var mostrar = false;
+
+        mostrarFormulario.addEventListener("click", function () {
+            if (mostrar) {
+                formulario.style.display = "none";
+                mostrar = false;
+            } else {
+                formulario.style.display = "block";
+                mostrar = true;
+            }
+        });
+    </script>
+
+    <script>
+        var formulario2 = document.getElementById("formulario2");
+        var mostrarFormulario2 = document.getElementById("mostrarFormulario2");
+        var mostrar = false;
+
+        mostrarFormulario2.addEventListener("click", function () {
+            if (mostrar) {
+                formulario2.style.display = "none";
+                mostrar = false;
+            } else {
+                formulario2.style.display = "block";
+                mostrar = true;
+            }
+        });
+    </script>
+ 
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<!-- Archivos JavaScript de Bootstrap (jQuery y Popper.js son dependencias) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>

@@ -6,35 +6,40 @@
 
 
 <div class="container">
-    <h1 class="p-4 text-center">Descripción del trabajo</h1>
-    <table class="table">
-        <thead>
+<h1 class="p-4 text-center">Trabajo</h1>
+<br />
+<h2>Ofertas laborales</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Nombre del trabajo</th>
+            <th class="text-center">Requerimientos</th>
+            <th class="text-center">Beneficio</th>
+            <th class="text-center">Responsabilidades</th>
+            <th class="text-center">Comentarios</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in (IEnumerable<dynamic>)ViewData["descripcionTrabajo"])
+        {
             <tr>
-                <th class="text-center">Nombre del trabajo</th>
-                <th class="text-center">Requerimientos</th>
-                <th class="text-center">Beneficio</th>
-                <th class="text-center">Responsabilidades</th>
-                <th class="text-center">Comentarios</th>
+                <td class="text-center">@item.nombre_trabajo</td>
+                <td class="text-center">@item.requerimientos</td>
+                <td class="text-center">@item.beneficio</td>
+                <td class="text-center">@item.responsabilidades</td>
+                <td class="text-center">@item.comentarios</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in (IEnumerable<dynamic>)ViewData["descripcionTrabajo"])
-            {
-                <tr>
-                    <td class="text-center">@item.nombre_trabajo</td>
-                    <td class="text-center">@item.requerimientos</td>
-                    <td class="text-center">@item.beneficio</td>
-                    <td class="text-center">@item.responsabilidades</td>
-                    <td class="text-center">@item.comentarios</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 </div>
 
 <div class="container p-3">
     <div class="accordion" id="accordionExample">
         <div class="accordion" id="accordionExample">
+            <span class="border border-black"></span>
+            <h3>Comentarios</h3>
+
             @foreach (var group in ((IEnumerable<dynamic>)ViewData["comentariosuser"]).GroupBy(c => c.nombreempresa))
             {
                 <div class="accordion-item">
@@ -77,7 +82,9 @@
 
 <form asp-action="Crearcomentario">
     <div>
-    
+        <div class="h4 pb-2 mb-4 text-dark">
+            Agrega un nuevo comentario
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -98,18 +105,18 @@
                     </select>
 
                 </div>
-                </div>
+            </div>
         </div>
-            <h5 class="p-3">Comentarios:</h5>
-            <div class="form-group">
-                @Html.TextArea("comentario", new { @class = "form-control", rows = "3" })
-            </div>
-            <div class="text-center">
+        <h5 class="p-3">Comentarios:</h5>
+        <div class="form-group">
+            @Html.TextArea("comentario", new { @class = "form-control", rows = "3" })
+        </div>
+        <div class="text-center">
             <button type="submit" class="btn btn-secondary m-3" onclick="deseleccionarDropDownList()">Agregar comentario</button>
-            </div>
+        </div>
     </div>
- </form>
-    
+</form>
+
 @section scripts {
     <script>
         function deseleccionarDropDownList() {
@@ -117,7 +124,7 @@
             document.getElementById("valoracion").selectedIndex = 0;
         }
     </script>
-   
+
 }
 
 

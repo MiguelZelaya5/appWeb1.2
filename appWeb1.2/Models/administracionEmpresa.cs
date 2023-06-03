@@ -14,7 +14,8 @@ namespace appWeb1._2.Models
         public string correo { get; set; }
         public string mision { get; set; }
         public string vision { get; set; }
-
+        
         public string detalle_contacto { get; set; }
+        public string contrasena { get; set; }
     }
 }
