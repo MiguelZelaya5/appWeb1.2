@@ -3,4 +3,206 @@
 *@
 @{
 }
-<h1>Estamos en mantenimiento, por favor volver a ver cuando se haga la entrega completa, Gracias</h1>
+@model IEnumerable<appWeb1._2.Models.administracionEmpresa>
+
+@{
+    ViewBag.Title = "Administrador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row g-0">
+        <div class="col-sm-6 col-md-8 mt-5">
+            <div class="mt-4">
+                <h1 class="mt-3 mt-md-2">Administrador</h1>
+                <h3 class="mt-2">
+                    Perfil:
+                    <button type="" class="btn btn-success" onclick="deseleccionarDropDownList()">Crear</button>
+                     <button type="" class="btn btn-success" onclick="deseleccionarDropDownList()">Actualizar</button>
+                    
+                </h3>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 mt-3 d-flex justify-content-end">
+            <img src="./img/usuario.svg" alt="Imagen" class="img-fluid" width="200">
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="row mb-2">
+                <div class="col-6">
+                    <h4>Nombre de la empresa:</h4>
+                </div>
+                <div class="col-6">
+
+                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h4 class="mb-2">Descripción:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h4 class="mb-2">Correo:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h4 class="mb-2">Misión:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h4 class="mb-2">Visión:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-secondary w-25">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h1>Publicar trabajo</h1>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-6">
+                    <h4 class="mt-2">Trabajo:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+                <div class="col-6">
+                    <h4 class="mt-2">Ubicación:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+                <div class="col-6">
+                    <h4 class="mt-2">Descripción:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-6">
+                    <h4 class="mt-2">Sueldo:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+                <div class="col-6">
+                    <h4 class="mt-2">Requisito:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+                <div class="col-6">
+                    <h4 class="mt-2">Detalles de contacto:</h4>
+                </div>
+                <div class="col-6">
+                    @Html.TextBox("", new { @class = "form-control form-control-sm mb-2" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <button class="btn btn-secondary w-25 mt-3 mb-3">Publicar</button>
+        </div>
+    </div>
+
+    <div class="container p-4">
+        <h4 class="text-center"><b>Estadisticas en tiempo real</b></h4>
+
+        <div class="row mt-4">
+            <div class="col-md-4 pb-5">
+                <h4 class="text-center">Oferta laboral</h4>
+                <h2 class="text-center counter">000</h2>
+            </div>
+            <div class="col-md-4 pb-5">
+                <h4 class="text-center">Visitas</h4>
+                <h2 class="text-center counter">000</h2>
+            </div>
+            <div class="col-md-4 pb-5">
+                <h4 class="text-center">Curriculum</h4>
+                <h2 class="text-center counter">000</h2>
+            </div>
+        </div>
+
+        <div class="container mx-auto text-center">
+            <h4 class="pb-3"><b>Registro de candidatos</b></h4>
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th><div class="text-center">Oferta</div></th>
+                        <th><div class="text-center">Candidatos</div></th>
+                        <th><div class="text-center">Curriculums</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                    </tr>
+                    <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                    </tr>
+                    <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container mt-4 mb-4">
+            <div class="row text-center">
+                <div class="col border py-3">
+                    Candidato
+                    <div class="row">
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col border py-3">
+                    Empresa
+                    <div class="row">
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col border py-3">
+                    Valoración
+                    <div class="row">
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

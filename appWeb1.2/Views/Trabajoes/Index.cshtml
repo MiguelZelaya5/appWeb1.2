@@ -63,7 +63,7 @@
 <div class="container">
     <div class="col row row-cols-auto top-20">
         <div class="col top-40"> <h3>Usuarios</h3></div>
-        <div class="col p-3 mb-2 bg-white text-black" style="font-size:20px;">
+        <div class="col top-40 bg-white text-black" style="font-size:25px;">
             @{
                 int conteouse = (int)ViewData["conteousuarios"];
                 string conteoFormatted1 = conteouse.ToString().PadLeft(Math.Max(4, conteouse.ToString().Length), '0');
@@ -75,7 +75,8 @@
 
         <div class="col row row-cols-auto top-20">
             <div class="col top-40"> <h3>Empleos</h3> </div>
-            <div class="col p-3 mb-2 bg-white text-black " style="font-size:20px;">
+            <div class="col top-40 bg-white text-black " style="font-size:25px;">
+                
                 @{
                     int conteo = (int)ViewData["conteoDatos"];
                     string conteoFormatted = conteo.ToString().PadLeft(Math.Max(4, conteo.ToString().Length), '0');
@@ -87,7 +88,7 @@
 
         <div class="col row row-cols-auto top-20" style="font-size:20px;>
             <div class="col top-40"> <h3>Recepcion de empleos</h3> </div>
-            <div class="col p-3 mb-2 bg-white text-black">
+            <div class="col top-40 bg-white text-black " style="font-size:25px;">
             @{
                 int conteo3 = (int)ViewData["conteoDatos"];
                 string conteoFormatted3 = conteo3.ToString().PadLeft(Math.Max(4, conteo3.ToString().Length), '0');
